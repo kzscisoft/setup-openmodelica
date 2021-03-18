@@ -5,17 +5,17 @@ then
     exit 1
 fi
 
-OPENMODELICA_GIT=https://github.com/OpenModelica/OpenModelica.git
-git clone $OPENMODELICA_GIT
+OPENMODELICA_DOWNLOADS=https://build.openmodelica.org/omc/builds/linux/releases/
 
 if [ -z ${INPUT_VERSION} ]
 then
-    INPUT_VERSION=$(git describe --tags $(git rev-list --tags --max-count=1) | xargs)
+    for deb in deb deb-src; do echo "$deb http://build.openmodelica.org/apt `lsb_release -cs` stable"; done | sudo tee /etc/apt/sources.list.d/openmodelica.list
+    apt update
+    apt install -y omc
+else
+    echo "deb ${OPENMODELICA_DOWNLOADS}/${INPUT_VERSION} bionic release" | sudo tee /etc/apt/sources.list.d/openmodelica.list
+    apt update
+    apt install -y omc
 fi
 
-git checkout ${INPUT_VERSION}
-cd OMCompiler
-autoconf
-./configure
-make
-make install
+for PKG in `apt-cache search "omlib-.*" | cut -d" " -f1`; do apt install -y "$PKG"; done
