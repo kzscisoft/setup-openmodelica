@@ -5,7 +5,6 @@ if [ -z ${INPUT_VERSION} ]
 then
     for deb in deb deb-src; do echo "$deb http://build.openmodelica.org/apt `lsb_release -cs` stable"; done | tee /etc/apt/sources.list.d/openmodelica.list
     apt update
-    apt install -y omc
     if [ $? -ne 0 ]
     then
         echo "Failed to install OMC"
@@ -14,6 +13,8 @@ then
 else
     echo "deb ${OPENMODELICA_DOWNLOADS}/${INPUT_VERSION} bionic release" | tee /etc/apt/sources.list.d/openmodelica.list
     apt update
+    apt install -y libomc libomcsimulation
+    apt install -y omc
     apt install -y omc
     if [ $? -ne 0 ]
     then
