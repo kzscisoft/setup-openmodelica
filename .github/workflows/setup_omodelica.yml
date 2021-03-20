@@ -5,7 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: kzscisoft/run-openmodelica-model@v1
-        model_name: SineCurrentModel
-        libraries:
-          - Modelica
-        file_path: test/SineCurrentModel.mo
+        with:
+          model_name: SineCurrentModel
+          libraries:
+            - Modelica
+          file_path: test/SineCurrentModel.mo
