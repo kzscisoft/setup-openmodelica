@@ -5,5 +5,5 @@ RUN apt upgrade -y
 RUN apt install -y build-essential wget cmake curl lsb-release
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-RUN wget -q http://build.openmodelica.org/apt/openmodelica.asc -O- | sudo apt-key add - 
+RUN wget -q http://build.openmodelica.org/apt/openmodelica.asc -O- | apt-key add - 
 ENTRYPOINT [ "/entrypoint.sh" ]
