@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-ARGUMENTS=("-s ${INPUT_FILE_PATH}")
+ARGUMENTS=("+s ${INPUT_FILE_PATH}")
 
 if [ -n "${INPUT_MODEL_NAME}" ]
 then
